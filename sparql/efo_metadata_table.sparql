@@ -1,0 +1,21 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?term ?name ?description ?is_obsolete ?replacement_acc
+WHERE {
+	OPTIONAL
+  { 
+		?term rdfs:label ?name .
+  }
+	OPTIONAL
+  { 
+		?term <http://purl.obolibrary.org/obo/IAO_0000115> ?description .
+  }
+	OPTIONAL
+  { 
+		?term owl:deprecated ?is_obsolete .
+  }
+	OPTIONAL
+  { 
+		?term <http://purl.obolibrary.org/obo/IAO_0100001> ?replacement_acc .
+  }
+  FILTER(isIRI(?term) && regex(str(?term), "EFO_"))
+}
