@@ -1,17 +1,27 @@
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
 SELECT DISTINCT ?term ?label ?definition ?exact_synonym
 WHERE {
-	OPTIONAL
+  OPTIONAL
   { 
-		?term rdfs:label ?label .
+    ?term rdfs:label ?name .
   }
-	OPTIONAL
+  OPTIONAL
   { 
-		?term <http://purl.obolibrary.org/obo/IAO_0000115> ?definition .
+    ?term <http://www.geneontology.org/formats/oboInOwl#id> ?acc .
   }
-	OPTIONAL
+  OPTIONAL
   { 
-		?term <http://www.geneontology.org/formats/oboInOwl#hasExactSynonym> ?exact_synonym .
+    ?term <http://purl.obolibrary.org/obo/IAO_0000115> ?description .
+  }
+  OPTIONAL
+  { 
+    ?term owl:deprecated ?is_obsolete .
+  }
+  OPTIONAL
+  { 
+    ?term <http://purl.obolibrary.org/obo/IAO_0100001> ?replacement_acc .
   }
   FILTER(isIRI(?term) && regex(str(?term), "MA_"))
 }

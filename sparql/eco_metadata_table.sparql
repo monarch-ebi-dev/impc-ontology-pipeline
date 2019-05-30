@@ -1,0 +1,26 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT DISTINCT ?term ?acc ?name ?description ?is_obsolete ?replacement_acc
+WHERE {
+  OPTIONAL
+  { 
+    ?term rdfs:label ?name .
+  }
+  OPTIONAL
+  { 
+    ?term <http://www.geneontology.org/formats/oboInOwl#id> ?acc .
+  }
+  OPTIONAL
+  { 
+    ?term <http://purl.obolibrary.org/obo/IAO_0000115> ?description .
+  }
+  OPTIONAL
+  { 
+    ?term owl:deprecated ?is_obsolete .
+  }
+  OPTIONAL
+  { 
+    ?term <http://purl.obolibrary.org/obo/IAO_0100001> ?replacement_acc .
+  }
+  FILTER(isIRI(?term) && regex(str(?term), "ECO_"))
+}

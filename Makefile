@@ -2,10 +2,10 @@
 
 OBO=http://purl.obolibrary.org/obo
 ROBOT=robot
-ONTOLOGIES=mp mp-ext-merged.owl ma emapa uberon eco efo emap mp-hp mp-hp-merge
-TABLES=mp mma emapa uberon eco efo emap
+ONTOLOGIES=mp mp-ext-merged ma emapa uberon eco efo emap mp-hp
+TABLES=mp ma emapa uberon eco efo emap
 ONTOLOGY_FILES = $(patsubst %, ontologies/%.owl, $(ONTOLOGIES))
-TABLE_FILES = $(patsubst %, tables/%.tsv, $(ONTOLOGIES))
+TABLE_FILES = $(patsubst %, tables/%.csv, $(TABLES))
 MIR=true
 GIT_UPHENO=https://github.com/obophenotype/upheno.git
 
@@ -16,6 +16,9 @@ ontologies/%.owl:
 ontologies/efo.owl:
 	#$(ROBOT) merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
 	echo "Skipping mirrors"
+
+ontologies/mp-ext-merged.owl:
+	$(ROBOT) merge -I https://raw.githubusercontent.com/obophenotype/mammalian-phenotype-ontology/master/scratch/mp-ext-merged.owl -o $@
 
 tmp/upheno:
 	git clone $(GIT_UPHENO) $@
@@ -38,4 +41,4 @@ clean:
 	rm -r tmp
 
 impc_ontologies: dirs $(ONTOLOGY_FILES) $(TABLE_FILES)
-	zip impc_ontologies.zip $(ONTOLOGY_FILES) $(TABLE_FILES)
+	tar cvzf impc_ontologies.tar.gz $(ONTOLOGY_FILES) $(TABLE_FILES)
