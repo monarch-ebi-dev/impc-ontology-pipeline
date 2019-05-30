@@ -1,6 +1,6 @@
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
-SELECT DISTINCT ?term ?acc ?name ?description ?is_obsolete ?replacement_acc
+SELECT DISTINCT ?term ?curie ?acc ?name ?description ?is_obsolete ?replacement_acc
 WHERE {
   OPTIONAL
   { 
@@ -8,7 +8,7 @@ WHERE {
   }
   OPTIONAL
   { 
-    ?term <http://www.geneontology.org/formats/oboInOwl#id> ?acc .
+    ?term <http://www.geneontology.org/formats/oboInOwl#id> ?curie .
   }
   OPTIONAL
   { 
@@ -23,4 +23,5 @@ WHERE {
     ?term <http://purl.obolibrary.org/obo/IAO_0100001> ?replacement_acc .
   }
   FILTER(isIRI(?term) && regex(str(?term), "ECO_"))
+	BIND(REPLACE(STR(?term), "http[:][/][/]purl[.]obolibrary[.]org[/]obo[/]ECO[_]", "ECO:", "i") AS ?acc)
 }
