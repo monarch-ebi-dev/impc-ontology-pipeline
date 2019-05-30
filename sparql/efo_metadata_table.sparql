@@ -1,4 +1,5 @@
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 SELECT DISTINCT ?term ?name ?description ?is_obsolete ?replacement_acc
 WHERE {
 	OPTIONAL

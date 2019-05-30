@@ -31,6 +31,8 @@ tables/%.csv: ontologies/%.owl
 
 dirs:
 	mkdir -p tmp
+	mkdir -p tables
+	mkdir -p ontologies
 
 clean: 
 	rm -r tmp
