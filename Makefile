@@ -27,7 +27,7 @@ ontologies/mp-hp.owl: #tmp/upheno/mp-hp-view.owl
 	cp $< $@
 
 tables/%.csv: ontologies/%.owl
-	$(ROBOT) query --use-graphs true -f csv -i $< --query ../sparql/$*_metadata_table.sparql $@
+	$(ROBOT) query --use-graphs true -f csv -i $< --query sparql/$*_metadata_table.sparql $@
 
 dirs:
 	mkdir -p tmp
