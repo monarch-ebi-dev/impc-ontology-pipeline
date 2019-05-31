@@ -24,6 +24,14 @@ WHERE {
   }
   FILTER(isIRI(?term) && regex(str(?term), "http[:][/][/]purl[.]obolibrary[.]org[/]obo[/]MP[_]"))
 	BIND(REPLACE(STR(?term), "http[:][/][/]purl[.]obolibrary[.]org[/]obo[/]MP[_]", "MP:", "i") AS ?acc)
-	BIND(REPLACE(REPLACE(REPLACE(STR(?replacement), "http[:][/][/]purl[.]obolibrary[.]org[/]obo[/]", "", "i"), "[_]", ":", "i"), "http[:][/][/]www[.]ebi[.]ac[.]uk[/]efo[/]", "", "i") AS ?replacement_acc)
-
+	BIND(
+		IF(	
+			regex(str(?replacement), "http[:][/][/]www[.]ebi[.]ac[.]uk[/]efo[/]EFO[_]")
+				|| regex(str(?replacement), "http[:][/][/]purl[.]obolibrary[.]org[/]obo[/]")
+				|| regex(str(?replacement), "http[:][/][/]www[.]orpha.net[/]ORDO[/]"),
+			REPLACE(
+				REPLACE(STR(?replacement), "http[:][/][/]purl[.]obolibrary[.]org[/]obo[/]|http[:][/][/]www[.]ebi[.]ac[.]uk[/]efo[/]|http[:][/][/]www[.]orpha.net[/]ORDO[/]", "", "i"),
+			"[_]", ":", "i")
+			,"") 
+		AS ?replacement_acc)
 }
