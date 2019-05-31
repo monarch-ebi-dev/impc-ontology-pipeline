@@ -2,20 +2,20 @@
 
 OBO=http://purl.obolibrary.org/obo
 ROBOT=robot
-ONTOLOGIES=mp mp-ext-merged ma emapa uberon eco efo emap mp-hp
-TABLES=mp ma emapa uberon eco efo emap
+ONTOLOGIES=mp mp-ext-merged ma emapa uberon eco efo emap mp-hp mmusdv mpath pato
+TABLES=mp ma emapa uberon eco efo emap mmusdv mpath pato
 ONTOLOGY_FILES = $(patsubst %, ontologies/%.owl, $(ONTOLOGIES))
 TABLE_FILES = $(patsubst %, tables/%.csv, $(TABLES))
 MIR=true
 GIT_UPHENO=https://github.com/obophenotype/upheno.git
 
 ontologies/%.owl:
-	#$(ROBOT) merge -I $(OBO)/$*.owl -o $@
-	echo "Skipping mirrors"
+	$(ROBOT) merge -I $(OBO)/$*.owl -o $@
+	#echo "Skipping mirrors"
 
 ontologies/efo.owl:
-	#$(ROBOT) merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
-	echo "Skipping mirrors"
+	$(ROBOT) merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
+	#echo "Skipping mirrors"
 
 ontologies/mp-ext-merged.owl:
 	$(ROBOT) merge -I https://raw.githubusercontent.com/obophenotype/mammalian-phenotype-ontology/master/scratch/mp-ext-merged.owl -o $@
