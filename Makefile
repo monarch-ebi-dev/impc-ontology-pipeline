@@ -21,12 +21,15 @@ ontologies/mp-ext-merged.owl:
 	$(ROBOT) merge -I https://raw.githubusercontent.com/obophenotype/mammalian-phenotype-ontology/master/scratch/mp-ext-merged.owl -o $@
 
 tmp/upheno:
+	mkdir -p $@
+	rm -rf $@
+	mkdir -p $@
 	git clone $(GIT_UPHENO) $@
 
 tmp/upheno/mp-hp-view.owl: tmp/upheno
 	cd  $< && make -B mp-hp-view.owl
 
-ontologies/mp-hp.owl: #tmp/upheno/mp-hp-view.owl
+ontologies/mp-hp.owl: tmp/upheno/mp-hp-view.owl
 	cp $< $@
 
 tables/%.csv: ontologies/%.owl
