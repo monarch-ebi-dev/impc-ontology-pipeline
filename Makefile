@@ -10,12 +10,28 @@ MIR=true
 GIT_UPHENO=https://github.com/obophenotype/upheno.git
 
 ontologies/%.owl:
-	$(ROBOT) merge -I $(OBO)/$*.owl -o $@
-	#echo "Skipping mirrors"
+	$(ROBOT) merge -I $(OBO)/$*.owl \
+	query --update sparql/update_replacement_term_to_curie_syntax.ru \
+	query --update sparql/update_consider_term_to_curie_syntax.ru \
+	query --update sparql/update_alternate_id_to_curie_syntax.ru \
+	query --update sparql/update_obo_ids.ru \
+	annotate --ontology-iri $(OBO)/$*/$@ --version-iri $(OBO)/$*/releases/$(TODAY)/$@ --output $@.tmp.owl && mv $@.tmp.owl $@
 
 ontologies/efo.owl:
-	$(ROBOT) merge -I http://www.ebi.ac.uk/efo/efo.owl -o $@
-	#echo "Skipping mirrors"
+	$(ROBOT) merge -I http://www.ebi.ac.uk/efo/efo.owl \
+	query --update sparql/update_replacement_term_to_curie_syntax.ru \
+	query --update sparql/update_consider_term_to_curie_syntax.ru \
+	query --update sparql/update_alternate_id_to_curie_syntax.ru \
+	query --update sparql/update_obo_ids.ru \
+	annotate --ontology-iri http://www.ebi.ac.uk/efo/efo.owl --output $@.tmp.owl && mv $@.tmp.owl $@
+	
+ontologies/efo2.owl:
+	$(ROBOT) merge -I http://www.ebi.ac.uk/efo/efo.owl \
+	annotate --ontology-iri http://www.ebi.ac.uk/efo/efo.owl --output $@.tmp.owl && mv $@.tmp.owl $@
+	
+check: ontologies/efo.owl ontologies/efo2.owl
+	$(ROBOT) diff --left ontologies/efo2.owl --right ontologies/efo.owl -o $@.txt
+
 
 ontologies/mp-ext-merged.owl:
 	$(ROBOT) merge -I https://raw.githubusercontent.com/obophenotype/mammalian-phenotype-ontology/master/scratch/mp-ext-merged.owl -o $@

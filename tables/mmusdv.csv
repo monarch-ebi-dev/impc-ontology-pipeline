@@ -19,7 +19,7 @@ http://purl.obolibrary.org/obo/MmusDv_0000069,MmusDv:0000069,MmusDv:0000069,5 mo
 http://purl.obolibrary.org/obo/MmusDv_0000039,MmusDv:0000039,MmusDv:0000039,adolescent stage,Immature stage that refers to a mouse which is over 4 weeks and under 7 weeks old.,true,,
 http://purl.obolibrary.org/obo/MmusDv_0000009,MmusDv:0000009,MmusDv:0000009,Theiler stage 05,Embryonic blastula stage defined by a zona free blastocyst (zona pellucida absent).,,,
 http://purl.obolibrary.org/obo/MmusDv_0000070,MmusDv:0000070,MmusDv:0000070,20 weeks,4 month-old stage that refers to a mouse which is over 140 days and under 148 days old.,,,
-http://purl.obolibrary.org/obo/MmusDv_0000040,MmusDv:0000040,MmusDv:0000040,adult stage,Mouse developmental stage that refers to a mouse which is over 5 weeks old.,true,MmusDv:0000110,""
+http://purl.obolibrary.org/obo/MmusDv_0000040,MmusDv:0000040,MmusDv:0000040,adult stage,Mouse developmental stage that refers to a mouse which is over 5 weeks old.,true,MmusDv:0000110,MmusDv:0000110
 http://purl.obolibrary.org/obo/MmusDv_0000010,MmusDv:0000010,MmusDv:0000010,Theiler stage 06,"Embryonic blastula stage during which the blastocyst attaches, with first evidence of embryonic endoderm cells covering the blastocoelic surface of the inner cell mass.",,,
 http://purl.obolibrary.org/obo/MmusDv_0000106,MmusDv:0000106,MmusDv:0000106,Theiler stage 10b,"Theiler developmental stage 10 during which small cavities coalesce to form a single cavity in the mesoderm of the posterior amniotic fold, the exocoelom.",,,
 http://purl.obolibrary.org/obo/MmusDv_0000082,MmusDv:0000082,MmusDv:0000082,11 month-old stage,Middle aged stage that refers to a mouse which is over 11 and under 12 months old.,,,

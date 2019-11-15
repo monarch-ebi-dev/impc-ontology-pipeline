@@ -32,6 +32,6 @@ WHERE {
 			REPLACE(
 				REPLACE(STR(?replacement), "http[:][/][/]purl[.]obolibrary[.]org[/]obo[/]|http[:][/][/]www[.]ebi[.]ac[.]uk[/]efo[/]|http[:][/][/]www[.]orpha.net[/]ORDO[/]", "", "i"),
 			"[_]", ":", "i")
-			,"") 
+			,?replacement) 
 		AS ?replacement_acc)
 }
