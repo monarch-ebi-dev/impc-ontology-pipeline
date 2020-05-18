@@ -5,7 +5,7 @@ ROBOT=robot
 ONTOLOGIES=mp mp-ext-merged ma emapa uberon eco efo emap mp-hp mmusdv mpath pato
 TABLES=mp ma emapa uberon eco efo emap mmusdv mpath pato
 ONTOLOGY_FILES = $(patsubst %, ontologies/%.owl, $(ONTOLOGIES))
-TABLE_FILES = $(patsubst %, tables/%.csv, $(TABLES))
+TABLE_FILES = $(patsubst %, tables/%_metadata_table.csv, $(TABLES))
 MIR=true
 GIT_UPHENO=https://github.com/obophenotype/upheno.git
 
@@ -51,6 +51,17 @@ ontologies/mp-hp.owl: tmp/upheno/mp-hp-view.owl
 tables/%.csv: ontologies/%.owl
 	$(ROBOT) query --use-graphs true -f csv -i $< --query sparql/$*_metadata_table.sparql $@
 
+
+#######################################
+#### Table for IMPC search index ######
+# https://github.com/monarch-ebi-dev/impc-ontology-pipeline/issues/1
+
+tables/mp_hp_matches.csv:
+	wget http://purl.obolibrary.org/obo/upheno/mappings/mp-hp.csv -O $@
+
+tables/impc_search_index.csv: tables/mp_lexical.csv tables/hp_lexical.csv tables/mp_parentage.csv
+	python scripts/mp_search_indexing.py
+
 dirs:
 	mkdir -p tmp
 	mkdir -p tables
@@ -59,5 +70,5 @@ dirs:
 clean: 
 	rm -r tmp
 
-impc_ontologies: dirs $(ONTOLOGY_FILES) $(TABLE_FILES)
-	tar cvzf impc_ontologies.tar.gz $(ONTOLOGY_FILES) $(TABLE_FILES)
+impc_ontologies: dirs $(ONTOLOGY_FILES) $(TABLE_FILES) tables/impc_search_index.csv
+	tar cvzf impc_ontologies.tar.gz $(ONTOLOGY_FILES) tables/*.csv tables/impc_search_index.csv
